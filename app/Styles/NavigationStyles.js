@@ -3,6 +3,6 @@ import {Colors} from '../Theme';
 
 export default StyleSheet.create({
   header: {
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.primary,
   },
 });

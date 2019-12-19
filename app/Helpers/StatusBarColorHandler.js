@@ -1,4 +1,5 @@
 import {StatusBar} from 'react-native';
+import {Colors} from '../Theme';
 
 const StatusBarColorHandler = routeName => {
   if (routeName === 'Lang') {
@@ -10,7 +11,7 @@ const StatusBarColorHandler = routeName => {
   } else {
     console.log('setting header color');
 
-    // StatusBar.setBackgroundColor(primaryColor);
+    StatusBar.setBackgroundColor(Colors.primary);
     StatusBar.setBarStyle('light-content');
   }
 };

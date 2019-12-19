@@ -12,7 +12,6 @@ class App extends React.Component {
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', BackButtonHandler);
   }
-
   render() {
     return (
       <Provider store={store}>

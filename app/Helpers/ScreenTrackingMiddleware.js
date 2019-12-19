@@ -38,7 +38,6 @@ const getCurrentRouteName = navigationState => {
   }
   const {routeName, params} = route;
 
-  console.log('routeName', routeName);
   return {routeName, params};
 };
 
