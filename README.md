@@ -1,2 +1,1 @@
-# revise-beat
-ReviseBeat Official App
+# revise-beat-mobileApp
