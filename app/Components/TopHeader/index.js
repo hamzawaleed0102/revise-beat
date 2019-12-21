@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {Metrics, Colors} from '../../Theme';
@@ -5,7 +6,7 @@ import {Icon} from 'native-base';
 import IMAGES from '../../Theme/Images';
 const TopHeader = ({children, showIcons = true}) => {
   return (
-    <View>
+    <View style={styles.root}>
       <View style={styles.container}>
         <View style={styles.circle} />
         <View
@@ -28,6 +29,9 @@ const TopHeader = ({children, showIcons = true}) => {
   );
 };
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   container: {
     height: Metrics.screenHeight * 0.12,
     backgroundColor: Colors.primary,

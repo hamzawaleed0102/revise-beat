@@ -4,7 +4,9 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import HomeScreen from '../Screens/Splash';
 import SignupScreen from '../Screens/Auth/Signup';
+import VerificationScreen from '../Screens/Auth/Verification';
 import LoginScreen from '../Screens/Auth/Login';
+import PackagesScreen from '../Screens/Packages/Packages';
 import styles from '../Styles/NavigationStyles';
 import LanguageOptions from '../Screens/LanguageOptions';
 import VoiceOptions from '../Screens/VoiceOptions';
@@ -12,7 +14,6 @@ import TypeOrUpload from '../Screens/TypeOrUpload';
 import Genres from '../Screens/Genres';
 import Player from '../Screens/Player';
 import Playlist from '../Screens/Playlist';
-import {Colors} from '../Theme';
 
 const TabNav = createBottomTabNavigator(
   {
@@ -51,13 +52,21 @@ const AuthStack = createStackNavigator(
       screen: SignupScreen,
       navigationOptions: {header: null},
     },
+    Verification: {
+      screen: VerificationScreen,
+      navigationOptions: {header: null},
+    },
     Login: {
       screen: LoginScreen,
       navigationOptions: {header: null},
     },
+    Packages: {
+      screen: PackagesScreen,
+      navigationOptions: {header: null},
+    },
   },
   {
-    initialRouteName: 'Signup',
+    initialRouteName: 'Packages',
     headerLayoutPreset: 'center',
     navigationOptions: {
       headerStyle: styles.header,
