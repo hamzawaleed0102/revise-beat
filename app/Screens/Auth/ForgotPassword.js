@@ -8,11 +8,20 @@ import TopHeader from '../../Components/TopHeader/index.js';
 import Header from '../../Components/Header/index.js';
 import {ApplicationStyles} from '../../Theme/index.js';
 export default class ForgotPassword extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      formData: {email: ''},
+    };
+  }
+
   handleContinueBtn = () => {
     this.props.navigation.navigate('Verification', {type: 'ForgotPassword'});
   };
 
   render() {
+    const isBtnDisabled = this.state.formData.email.trim() === '';
     return (
       <TopHeader showIcons={false}>
         <Header title="Reset Your Password" />
@@ -24,13 +33,16 @@ export default class ForgotPassword extends React.Component {
               </Text>
               <Input
                 placeholder="Email"
+                keyboardType="email-address"
+                value={this.state.formData.email}
                 style={[ApplicationStyles.textbox, {marginTop: '15%'}]}
-                onChangeText={val => this.onTextInput('username', val)}
+                onChangeText={email => this.setState({formData: {email}})}
               />
 
               <PrimaryButton
                 title="Continue"
                 marginTop="60%"
+                disabled={isBtnDisabled}
                 onPress={this.handleContinueBtn}
               />
             </Form>

@@ -7,9 +7,38 @@ import WideBanner from '../../Components/Ads/WideBanner.js';
 import TopHeader from '../../Components/TopHeader/index.js';
 import Header from '../../Components/Header/index.js';
 import {ApplicationStyles} from '../../Theme/index.js';
+import {GetSignupErrors} from '../../Helpers/GetErrors';
+import ErrorLabel from '../../Components/ErrorLabel/ErrorLabel';
 export default class ResetPassword extends React.Component {
-  handleContinueBtn = () => {
-    this.props.navigation.navigate('Home');
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      formData: {
+        password: '',
+        confirmPassword: '',
+      },
+      errors: ['errors'],
+    };
+  }
+
+  onSubmit = () => {
+    this.setState({errors: GetSignupErrors(this.state.formData)}, () => {
+      if (this.state.errors.length === 0) {
+        this.props.navigation.navigate('Home');
+      }
+    });
+  };
+
+  onTextInput = (key, val) => {
+    this.setState({formData: {...this.state.formData, [key]: val}});
+    // remove error
+    const newErrors = this.state.errors;
+    let errIndex = newErrors.indexOf(key);
+    if (errIndex !== -1) {
+      newErrors.splice(errIndex, 1);
+      this.setState({errors: newErrors});
+    }
   };
 
   render() {
@@ -26,18 +55,23 @@ export default class ResetPassword extends React.Component {
               <Input
                 placeholder="New Password"
                 style={[ApplicationStyles.textbox, {marginTop: '15%'}]}
-                onChangeText={val => this.onTextInput('username', val)}
+                onChangeText={password =>
+                  this.onTextInput('password', password)
+                }
               />
+              {ErrorLabel('password', this.state.errors)}
               <Input
                 placeholder="Confirm Password"
                 style={[ApplicationStyles.textbox]}
-                onChangeText={val => this.onTextInput('username', val)}
+                onChangeText={confirmPassword =>
+                  this.onTextInput('confirmPassword', confirmPassword)
+                }
               />
-
+              {ErrorLabel('confirmPassword', this.state.errors)}
               <PrimaryButton
                 title="Continue"
                 marginTop="40%"
-                onPress={this.handleContinueBtn}
+                onPress={this.onSubmit}
               />
             </Form>
             <WideBanner />
