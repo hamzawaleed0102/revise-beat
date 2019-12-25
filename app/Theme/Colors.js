@@ -1,6 +1,6 @@
 const COLORS = {
   primary: '#ad1e23',
-  blackText: 'rgba(106, 106, 106, 1)',
+  blackText: '#6A6A6A',
   gray: '#6A6A6A',
 };
 

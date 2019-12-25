@@ -3,17 +3,12 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {StyleSheet} from 'react-native';
 import COLORS from '../../Theme/Colors';
 import {FONTSIZES} from '../../Theme/Fonts';
-const PrimaryButton = ({
-  title,
-  onPress,
-  opacity = 1,
-  marginTop = 10,
-  disabled,
-}) => {
+const PrimaryButton = ({title, onPress, marginTop = 10, disabled}) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       disabled={disabled}
-      style={[styles.touchable, {marginTop, opacity}]}
+      style={[styles.touchable, {marginTop, opacity: disabled ? 0.7 : 1}]}
       onPress={onPress}>
       <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>

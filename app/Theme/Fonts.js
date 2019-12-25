@@ -5,7 +5,7 @@ const FONTFAMILY = {
 };
 
 const FONTSIZES = {
-  inputLabel: 16,
+  inputLabel: 14,
   btnLabel: 18,
 };
 

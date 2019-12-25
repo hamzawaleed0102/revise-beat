@@ -1,6 +1,7 @@
 export const Messages = {
   userManagement: {
     updateProfile: 'Please update your profile to use this feature',
+    sms:
       'Please enter verification code sent to your mobile number. It might take few minutes to deliver, depending on network condition.',
   },
   locationHandler: {
@@ -19,4 +20,13 @@ export const Messages = {
       validName: 'Please enter a valid name',
     },
   },
+};
+
+export const signupValidation = {
+  fullName: 'Please enter a valid full name',
+  username: 'Please enter a valid username',
+  email: 'Please enter a valid email address',
+  usernameEmail: 'Please enter a valid username or email',
+  password: 'Password must be at least 6 characters',
+  confirmPassword: 'Passwords do not match',
 };
