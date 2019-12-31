@@ -3,39 +3,58 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Colors} from '../../Theme';
 import {Icon} from 'native-base';
 import {withNavigation} from 'react-navigation';
+import {
+  Container,
+  Header as NBHeader,
+  Left,
+  Body,
+  Right,
+  Button,
+  Title,
+} from 'native-base';
 
-const Header = ({title, navigation}) => {
+const Header = ({title, navigation, hideBack = false}) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.left}
-        onPress={() => navigation.goBack(null)}>
-        <Icon name="back" />
-      </TouchableOpacity>
-      <Text style={styles.title}>{title}</Text>
-      <View style={styles.right} />
-    </View>
+    <NBHeader style={styles.container}>
+      <Left style={styles.left}>
+        {!hideBack && (
+          <TouchableOpacity onPress={() => navigation.goBack(null)}>
+            <Icon name="md-arrow-back" style={styles.icon} type="Ionicons" />
+          </TouchableOpacity>
+        )}
+      </Left>
+      <Body style={{flex: 3}}>
+        <Title style={styles.title}>{title}</Title>
+      </Body>
+      <Right style={styles.right}>
+        {/* <Button hasText transparent>
+          <Text>Cancel</Text>
+        </Button> */}
+      </Right>
+    </NBHeader>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: 56,
     backgroundColor: Colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: 10,
+    elevation: 0,
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+  },
+  icon: {
+    color: 'white',
+    fontSize: 25,
   },
   left: {
     flex: 1,
   },
   title: {
     color: 'white',
-    textAlign: 'center',
+    alignSelf: 'center',
     fontSize: 17,
-    flex: 3,
   },
   right: {
     flex: 1,

@@ -3,17 +3,17 @@ import {Platform} from 'react-native';
 const productionAndroid = 'http://myapp.com/';
 const productionIOS = 'http://myapp.com';
 const mode = {
-  developement: 'http://10.200.10.33:8001/',
-  QA: 'http://10.200.10.33:9001/',
+  developement: 'http://192.168.10.87:8001/',
+  QA: 'http://192.168.10.87:9001/',
   production: Platform.OS === 'android' ? productionAndroid : productionIOS,
 };
 
-const apiURL = 'api/';
+const apiURL = 'revisebeat/api/v1';
 
 const baseURL = mode.developement; //Change development mode
 
-const urlPaths = {
-  loginUser: baseURL + apiURL + 'Users/LoginUser',
+const API = {
+  signup: baseURL + apiURL + '/signup',
 };
 
-export default urlPaths;
+export default API;

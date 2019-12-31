@@ -1,4 +1,5 @@
-import {Text} from 'react-native';
+import React from 'react';
+import {Text, Image} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
@@ -16,18 +17,42 @@ import Type from '../Screens/TypeOrUpload/Type';
 import Upload from '../Screens/TypeOrUpload/Documents';
 import DocumentUploaded from '../Screens/TypeOrUpload/DocumentUploaded';
 import Genres from '../Screens/Genres';
-import Player from '../Screens/Player';
+import Player from '../Screens/Player/Player';
 import Playlist from '../Screens/Playlist';
 import ResetPassword from '../Screens/Auth/ResetPassword';
 import Voices from '../Screens/VoiceOptions/Voices';
 import VoiceTuner from '../Screens/VoiceOptions/VoiceTuner';
 import {fromRight} from 'react-navigation-transitions';
-
+const icons = {
+  LanguageOptions: {
+    simple: require('../../assets/icons/tab/global-fill.png'),
+    hover: require('../../assets/icons/tab/red/global-fill.png'),
+  },
+  VoiceOptions: {
+    simple: require('../../assets/icons/tab/user-voice-fill.png'),
+    hover: require('../../assets/icons/tab/red/user-voice-fill.png'),
+  },
+  TypeOrUpload: {
+    simple: require('../../assets/icons/tab/file-upload-fill.png'),
+    hover: require('../../assets/icons/tab/red/file-upload-fill.png'),
+  },
+  Genres: {
+    simple: require('../../assets/icons/tab/music-fill.png'),
+    hover: require('../../assets/icons/tab/music-fill.png'),
+  },
+  Player: {
+    simple: require('../../assets/icons/tab/music-fill.png'),
+    hover: require('../../assets/icons/tab/music-fill.png'),
+  },
+  Playlist: {
+    simple: require('../../assets/icons/tab/play-list-fill.png'),
+    hover: require('../../assets/icons/tab/red/play-list-fill.png'),
+  },
+};
 const TabNav = createBottomTabNavigator(
   {
     LanguageOptions: {
       screen: LanguageOptions,
-      navigationOptions: {title: 'Language Options'},
     },
     VoiceOptions: {screen: VoiceOptions},
     TypeOrUpload: {screen: TypeOrUpload},
@@ -36,7 +61,26 @@ const TabNav = createBottomTabNavigator(
     Playlist: {screen: Playlist},
   },
   {
-    // initialRouteName: 'Player',
+    tabBarOptions: {
+      showLabel: false,
+    },
+    defaultNavigationOptions: ({navigation}) => ({
+      tabBarIcon: ({focused}) => {
+        const {routeName} = navigation.state;
+        let iconName;
+        if (focused) {
+          iconName = icons[routeName].hover;
+        } else {
+          iconName = icons[routeName].simple;
+        }
+        return (
+          <Image
+            source={iconName}
+            style={{width: 24, height: 24, marginTop: 4}}
+          />
+        );
+      },
+    }),
   },
 );
 
@@ -79,16 +123,16 @@ const AppStack = createStackNavigator(
 
 const AuthStack = createStackNavigator(
   {
+    Login: {
+      screen: LoginScreen,
+      navigationOptions: {header: null},
+    },
     Signup: {
       screen: SignupScreen,
       navigationOptions: {header: null},
     },
     Verification: {
       screen: VerificationScreen,
-      navigationOptions: {header: null},
-    },
-    Login: {
-      screen: LoginScreen,
       navigationOptions: {header: null},
     },
     Packages: {
@@ -105,6 +149,7 @@ const AuthStack = createStackNavigator(
     },
   },
   {
+    transitionConfig: () => fromRight(500),
     initialRouteName: 'Signup',
     headerLayoutPreset: 'center',
     navigationOptions: {
@@ -120,7 +165,7 @@ const App = createSwitchNavigator(
     App: AppStack,
   },
   {
-    initialRouteName: 'Splash',
+    initialRouteName: 'App',
   },
 );
 export default createAppContainer(App);

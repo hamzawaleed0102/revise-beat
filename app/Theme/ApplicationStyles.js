@@ -22,6 +22,7 @@ const ApplicationStyles = StyleSheet.create({
     height: 40,
     marginTop: 20,
     paddingHorizontal: 10,
+    fontSize: FONTSIZES.inputLabel,
   },
   blackTextCenter: {
     color: 'rgba(106, 106, 106, 1)',

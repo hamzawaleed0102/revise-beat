@@ -4,14 +4,16 @@ import {Button} from 'native-base';
 // import AsyncStorage from '@react-native-community/async-storage';
 export default class HomeScreen extends Component {
   async componentDidMount() {
-    this.props.navigation.navigate('App');
+    setTimeout(() => {
+      this.props.navigation.navigate('Auth');
+    }, 2000);
 
     // let user = await AsyncStorage.getItem('User');
     // this.dispatchCartItemsCount();
     // if (user) {
     //   user = JSON.parse(user);
     //   store.dispatch({
-    //     type: 'SET_LANG_AND_USER',
+    //     type: 'SET_LANG_AND_USE R',
     //     user: user,
     //   });
     //   this.props.navigation.navigate('App');

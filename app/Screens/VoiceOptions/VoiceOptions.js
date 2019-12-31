@@ -7,7 +7,7 @@ export default class VoiceOptions extends Component {
   render() {
     return (
       <TopHeader>
-        <Header title="Voice Options" />
+        <Header title="Voice Options" hideBack />
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.redCard}

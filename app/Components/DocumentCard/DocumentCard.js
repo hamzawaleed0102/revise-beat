@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import COLORS from '../../Theme/Colors';
+import {Icon} from 'native-base';
 
 export default class DocumentCard extends Component {
   state = {
@@ -42,9 +43,10 @@ export default class DocumentCard extends Component {
             onPress={() =>
               this.setState({showContextMenu: !this.state.showContextMenu})
             }>
-            <Image
+            <Icon
+              name="dots-horizontal"
               style={docCardStyles.editIcon}
-              source={require('../../../assets/icons/voices/play-mini-line.png')}
+              type="MaterialCommunityIcons"
             />
           </TouchableOpacity>
         </TouchableOpacity>
@@ -82,8 +84,12 @@ export const docCardStyles = StyleSheet.create({
     paddingRight: 30,
     alignItems: 'center',
   },
+  contextBtn: {
+    right: 5,
+  },
   editIcon: {
-    backgroundColor: 'white',
+    color: COLORS.primary,
+    fontSize: 20,
   },
   titlesContainer: {
     paddingVertical: 20,

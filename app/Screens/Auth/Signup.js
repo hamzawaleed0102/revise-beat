@@ -11,6 +11,8 @@ import WideBanner from '../../Components/Ads/WideBanner';
 import {signupValidation} from '../../Constants/Strings';
 import {GetSignupErrors} from '../../Helpers/GetErrors';
 import ErrorLabel from '../../Components/ErrorLabel/ErrorLabel';
+import Axios from 'axios';
+import API from '../../Constants/API';
 export default class Signup extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +20,7 @@ export default class Signup extends Component {
     this.state = {
       formData: {
         fullName: '',
-        username: '',
+        userName: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -41,7 +43,10 @@ export default class Signup extends Component {
   onSubmit = () => {
     this.setState({errors: GetSignupErrors(this.state.formData)}, () => {
       if (this.state.errors.length === 0) {
-        this.props.navigation.navigate('Verification');
+        Axios.post(API.signup, {...this.state.formData}).then(res =>
+          console.log('res', res),
+        );
+        // this.props.navigation.navigate('Verification');
       }
     });
   };

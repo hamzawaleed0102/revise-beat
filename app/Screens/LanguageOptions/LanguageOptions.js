@@ -46,7 +46,7 @@ export default class LanguageOptions extends Component {
   render() {
     return (
       <TopHeader centerImg={IMAGES.logo}>
-        <Header title="Language Options" />
+        <Header title="Language Options" hideBack />
         <View style={styles.container}>
           <FlatList
             ListHeaderComponent={

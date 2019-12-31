@@ -1,24 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  Modal,
-  TextInput,
-} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
 import Header from '../../Components/Header';
 import TopHeader from '../../Components/TopHeader';
-import IMAGES from '../../Theme/Images';
 import WideBanner from '../../Components/Ads/WideBanner';
-import PrimaryButton from '../../Components/Button/PrimaryButton';
 import styles from '../../Styles/documents.styles';
 import DocumentCard from '../../Components/DocumentCard/DocumentCard';
-import {ApplicationStyles} from '../../Theme';
 import BottomEditor from './BottomEditor';
 import EditModel from './EditModel';
+import FAB from '../../Components/FAB/FAB';
 const DATA = [
   {
     id: 4,
@@ -100,6 +90,10 @@ export default class Upload extends Component {
     this.setState({selectedDoc: {...this.state.selectedDoc, title}});
   };
 
+  addNewDocument = () => {
+    this.props.navigation.navigate('DocumentUploaded');
+  };
+
   render() {
     return (
       <TopHeader>
@@ -132,6 +126,7 @@ export default class Upload extends Component {
             addToLibrary={this.addToLibrary}
             modalVisible={this.state.modalVisible}
           />
+          <FAB onPress={this.addNewDocument} />
           <WideBanner />
         </View>
       </TopHeader>

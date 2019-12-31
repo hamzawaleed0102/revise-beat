@@ -27,11 +27,10 @@ export default class DocumentEditCard extends Component {
             </Text>
           </View>
           <TouchableOpacity
-            style={docCardStyles.contextBtn}
             onPress={() => toggleDocumentEditor(document, true)}>
             <Image
               style={docCardStyles.editIcon}
-              source={require('../../../assets/icons/voices/play-mini-line.png')}
+              source={require('../../../assets/icons/typeOrUpload/edit-line.png')}
             />
           </TouchableOpacity>
         </View>

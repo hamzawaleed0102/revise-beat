@@ -2,9 +2,10 @@ import {StyleSheet} from 'react-native';
 import COLORS from '../Theme/Colors';
 export default StyleSheet.create({
   form: {
+    paddingVertical: 10,
     paddingHorizontal: 12,
-    paddingTop: 60,
-    paddingBottom: 10,
+    // paddingTop: 60,
+    // paddingBottom: 10,
   },
   alreadyAccountLabel: {
     textAlign: 'center',
@@ -26,5 +27,13 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     paddingHorizontal: '5%',
+  },
+  passwordFieldContainer: {
+    flex: 1,
+  },
+  eyeIcon: {
+    position: 'absolute',
+    right: 15,
+    top: 32,
   },
 });

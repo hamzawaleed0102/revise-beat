@@ -9,10 +9,8 @@ const StatusBarColorHandler = routeName => {
     StatusBar.setBackgroundColor('#fff');
     StatusBar.setBarStyle('dark-content');
   } else {
-    console.log('setting header color');
-
-    StatusBar.setBackgroundColor(Colors.primary);
-    StatusBar.setBarStyle('light-content');
+    StatusBar.setBackgroundColor('white');
+    StatusBar.setBarStyle('dark-content');
   }
 };
 

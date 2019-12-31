@@ -6,7 +6,7 @@ export default class Genres extends Component {
   render() {
     return (
       <TopHeader>
-        <Header title="Genres" />
+        <Header title="Genres" hideBack />
         <View>
           <Text> Genres </Text>
         </View>

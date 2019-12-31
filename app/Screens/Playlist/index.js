@@ -6,7 +6,7 @@ export default class Playlist extends Component {
   render() {
     return (
       <TopHeader>
-        <Header title="Playlist" />
+        <Header title="Playlist" hideBack />
         <View>
           <Text> Playlist </Text>
         </View>

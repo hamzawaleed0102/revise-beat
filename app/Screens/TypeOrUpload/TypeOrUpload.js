@@ -7,7 +7,7 @@ export default class TypeOrUpload extends Component {
   render() {
     return (
       <TopHeader>
-        <Header title="Type or Upload Document" />
+        <Header title="Type or Upload Document" hideBack />
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.redCard}

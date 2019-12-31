@@ -43,7 +43,6 @@ export default class DocumentUploaded extends Component {
     this.setState({uploadedDoc});
     //then hide bottom editor
     this.toggleDocumentEditor();
-    this.props.navigation.goBack();
   };
 
   onChangeTitle = docTitle => {
@@ -56,6 +55,10 @@ export default class DocumentUploaded extends Component {
     });
   };
 
+  saveChanges = () => {
+    alert('sending save request');
+    this.props.navigation.goBack();
+  };
   render() {
     console.log('uploadedDoc', this.state.uploadedDoc);
     return (
@@ -78,9 +81,10 @@ export default class DocumentUploaded extends Component {
               updateDocumentTitle={this.updateDocumentTitle}
               selectedDoc={this.state.uploadedDoc}
               value={this.state.docTitle}
+              hideSaveBtn
             />
           )}
-          <PrimaryButton title="Save" />
+          {/* <PrimaryButton title="Save" onPress={this.saveChanges} /> */}
           <WideBanner />
         </View>
       </TopHeader>
