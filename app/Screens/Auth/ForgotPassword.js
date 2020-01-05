@@ -7,6 +7,8 @@ import WideBanner from '../../Components/Ads/WideBanner.js';
 import TopHeader from '../../Components/TopHeader/index.js';
 import Header from '../../Components/Header/index.js';
 import {ApplicationStyles} from '../../Theme/index.js';
+import Axios from 'axios';
+import API from '../../Constants/API';
 export default class ForgotPassword extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +19,19 @@ export default class ForgotPassword extends React.Component {
   }
 
   handleContinueBtn = () => {
-    this.props.navigation.navigate('Verification', {type: 'ForgotPassword'});
+    Axios.post(API.sendVerificationCode, {to: this.state.formData.email})
+      .then(res => {
+        this.props.navigation.navigate('Verification', {
+          verificationCode: res.data.data.code,
+          type: 'ResetPassword',
+        });
+      })
+      .catch(e =>
+        Alert.alert(
+          'Error',
+          'Unable to send verification emaili, Please retry later.',
+        ),
+      );
   };
 
   render() {
@@ -41,7 +55,7 @@ export default class ForgotPassword extends React.Component {
 
               <PrimaryButton
                 title="Continue"
-                marginTop="60%"
+                marginTop={6}
                 disabled={isBtnDisabled}
                 onPress={this.handleContinueBtn}
               />

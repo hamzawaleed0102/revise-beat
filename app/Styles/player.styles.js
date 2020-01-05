@@ -33,7 +33,7 @@ export default StyleSheet.create({
   controlsContainer: {
     flexDirection: 'row',
     paddingHorizontal: 20,
-    paddingVertical: 7,
+    paddingBottom: 10,
   },
   leftControls: {
     flex: 1,

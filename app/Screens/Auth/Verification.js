@@ -1,16 +1,17 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import CodeInput from 'react-native-confirmation-code-field';
 import styles from '../../Styles/verification.styles.js';
 import PrimaryButton from '../../Components/Button/PrimaryButton.js';
-import {Content, Container} from 'native-base';
+import {Content} from 'native-base';
 import WideBanner from '../../Components/Ads/WideBanner.js';
 import TopHeader from '../../Components/TopHeader/index.js';
 import Header from '../../Components/Header/index.js';
 import CountdownCircle from 'react-native-countdown-circle';
-import COLORS from '../../Theme/Colors.js';
-
-export default class Verification extends React.Component {
+import {withSignup} from '../../Redux/hoc/withSignup.js';
+import Axios from 'axios';
+import API from '../../Constants/API.js';
+class Verification extends React.Component {
   constructor(props) {
     super(props);
 
@@ -18,6 +19,7 @@ export default class Verification extends React.Component {
       userInput: '',
       resendDisabled: false,
       resendTime: 60,
+      verificationCode: props.navigation.getParam('verificationCode'),
     };
   }
 
@@ -26,12 +28,12 @@ export default class Verification extends React.Component {
   };
 
   verifyCode = () => {
-    if (this.state.userInput === '1234') {
+    if (Number(this.state.userInput) === this.state.verificationCode) {
       const type = this.props.navigation.getParam('type');
-      if (type === 'ForgotPassword') {
+      if (type === 'ResetPassword') {
         this.props.navigation.navigate('ResetPassword');
-      } else {
-        this.props.navigation.navigate('Packages');
+      } else if (type === 'Signup') {
+        this.props.verifyEmail(this.props.user.user_id, type);
       }
     } else {
       return Alert.alert('Oops!', 'Invalid code!', [{text: 'OK'}], {
@@ -52,7 +54,17 @@ export default class Verification extends React.Component {
   };
 
   resendCode = () => {
-    // API to send code.
+    Axios.post(API.sendVerificationCode, {to: this.props.user.email})
+      .then(res => {
+        this.setState({verificationCode: res.data.data.code});
+        Alert.alert('Success', res.data.message);
+      })
+      .catch(e =>
+        Alert.alert(
+          'Error',
+          'Unable to send verification emaili, Please retry later.',
+        ),
+      );
     this.setState({resendTime: 60});
   };
   containerProps = {style: styles.inputWrapStyle};
@@ -60,9 +72,14 @@ export default class Verification extends React.Component {
   colors = ['#ff595f', '#e42959'];
 
   render() {
+    console.log('this.props.user in verification', this.props.user);
+    console.log(
+      'this.props.navigation.getParam',
+      this.props.navigation.getParam('type'),
+    );
     return (
       <TopHeader showIcons={false}>
-        <Header title="Verify Your Email" />
+        <Header title="Verify Your Email" hideBack />
         <Content>
           <View style={styles.container}>
             <View style={styles.inputWrapper}>
@@ -99,6 +116,7 @@ export default class Verification extends React.Component {
 
               <PrimaryButton
                 title="Verify"
+                loading={this.props.loading.name === 'Verification'}
                 marginTop={40}
                 onPress={this.verifyCode}
               />
@@ -110,3 +128,4 @@ export default class Verification extends React.Component {
     );
   }
 }
+export default withSignup(Verification);

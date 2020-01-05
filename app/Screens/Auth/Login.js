@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
-import {Text, View, Image, TouchableOpacity, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Alert,
+  LayoutAnimation,
+} from 'react-native';
 import TopHeader from '../../Components/TopHeader';
 import Header from '../../Components/Header';
-import {Content, Form, Item, Input, Icon} from 'native-base';
+import {Content, Form, Item, Input, Icon, Spinner} from 'native-base';
 import {ApplicationStyles} from '../../Theme';
 import PrimaryButton from '../../Components/Button/PrimaryButton';
 import styles from '../../Styles/auth.styles';
@@ -12,16 +19,14 @@ import {GetSignupErrors} from '../../Helpers/GetErrors';
 import {connect} from 'react-redux';
 import COLORS from '../../Theme/Colors';
 import SecurityQuestion from './SecurityQuestion';
+import {withSignup} from '../../Redux/hoc/withSignup';
+import AsyncStorage from '@react-native-community/async-storage';
 class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      formData: {email: 'asd@mm.m', password: '123'},
-      user: {
-        securityQuestion: 'What is your favorite food?',
-        securityAnswer: 'hello',
-      },
+      formData: {userNameOrEmail: 'ovi', password: '12345678'},
       errors: ['errors'],
       hidePassword: true,
       modalVisible: false,
@@ -40,29 +45,25 @@ class Login extends Component {
   };
 
   onSubmit = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     this.setState({errors: GetSignupErrors(this.state.formData)}, () => {
       if (this.state.errors.length === 0) {
-        // send login request
-        //  this.setState({user})
-        this.setState({modalVisible: true});
+        this.props.loginUser(this.state.formData);
       }
     });
   };
 
   handleSecurityVerification = () => {
-    const {user, inputSecurityAnswer} = this.state;
-    if (user.securityAnswer === inputSecurityAnswer) {
-      // dispatch redux action
+    const {inputSecurityAnswer} = this.state;
+    if (this.props.user.security_question_answer === inputSecurityAnswer) {
       this.props.navigation.navigate('App');
     } else {
       Alert.alert('Oops', 'Invalid security answer');
     }
   };
+
   render() {
-    console.log(
-      'this.props.inputSecurityAnswer',
-      this.state.inputSecurityAnswer,
-    );
+    console.log('this.props.user', this.props.user);
     return (
       <TopHeader showIcons={false}>
         <Header title="Sign In" hideBack />
@@ -70,11 +71,11 @@ class Login extends Component {
           <Form style={styles.form}>
             <Input
               placeholder="Email/Username"
-              keyboardType="email-address"
+              keyboardType="default"
               style={ApplicationStyles.textbox}
-              onChangeText={val => this.onTextInput('email', val)}
+              onChangeText={val => this.onTextInput('userNameOrEmail', val)}
             />
-            {ErrorLabel('email', this.state.errors)}
+            {ErrorLabel('userNameOrEmail', this.state.errors)}
             <View style={styles.passwordFieldContainer}>
               <Input
                 placeholder="Password"
@@ -107,10 +108,12 @@ class Login extends Component {
               onPress={() => this.props.navigation.navigate('Forgot')}>
               <Text style={styles.forgotTxt}>Forgot Password?</Text>
             </TouchableOpacity>
+
             <PrimaryButton
               title="Sign In"
               onPress={this.onSubmit}
-              marginTop="60%"
+              marginTop={4.1}
+              loading={this.props.loading.name === 'login'}
             />
 
             <Text style={styles.alreadyAccountLabel}>
@@ -125,8 +128,12 @@ class Login extends Component {
           </Form>
         </Content>
         <SecurityQuestion
-          modalVisible={this.state.modalVisible}
-          user={this.state.user}
+          // only visible in login case
+          modalVisible={
+            this.props.user.email_verified === 1 &&
+            this.props.user.subscription_plan_id != null
+          }
+          user={this.props.user}
           handleSecurityVerification={this.handleSecurityVerification}
           onTextChange={inputSecurityAnswer =>
             this.setState({inputSecurityAnswer})
@@ -137,8 +144,4 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return state;
-};
-
-export default connect(mapStateToProps)(Login);
+export default withSignup(Login);

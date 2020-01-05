@@ -8,7 +8,7 @@ const SecurityQuestion = ({
   modalVisible,
   onTextChange,
   handleSecurityVerification,
-  user,
+  user = {},
 }) => {
   return (
     <Modal animationType="fade" transparent={true} visible={modalVisible}>
@@ -20,7 +20,7 @@ const SecurityQuestion = ({
         </Text>
         <Text style={{textAlign: 'center', marginTop: 20}}>
           <Text style={{fontWeight: 'bold'}}>Q: </Text>
-          {user.securityQuestion}
+          {user.security_question}
         </Text>
         <TextInput
           onChangeText={val => onTextChange(val)}
@@ -31,7 +31,7 @@ const SecurityQuestion = ({
         <PrimaryButton
           onPress={handleSecurityVerification}
           title="Continue"
-          marginTop={40}
+          marginTop={20}
         />
       </View>
     </Modal>

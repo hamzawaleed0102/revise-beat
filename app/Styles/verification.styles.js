@@ -25,6 +25,7 @@ export default StyleSheet.create({
     color: COLORS.blackText,
     textAlign: 'center',
     fontSize: 16,
+    paddingHorizontal: 10,
   },
   inputWrapStyle: {
     height: 50,
@@ -90,6 +91,7 @@ export default StyleSheet.create({
   },
   name: {
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   price: {
     fontWeight: 'bold',

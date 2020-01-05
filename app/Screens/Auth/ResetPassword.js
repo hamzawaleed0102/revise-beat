@@ -9,6 +9,8 @@ import Header from '../../Components/Header/index.js';
 import {ApplicationStyles} from '../../Theme/index.js';
 import {GetSignupErrors} from '../../Helpers/GetErrors';
 import ErrorLabel from '../../Components/ErrorLabel/ErrorLabel';
+import Axios from 'axios';
+import API from '../../Constants/API';
 export default class ResetPassword extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +27,17 @@ export default class ResetPassword extends React.Component {
   onSubmit = () => {
     this.setState({errors: GetSignupErrors(this.state.formData)}, () => {
       if (this.state.errors.length === 0) {
-        this.props.navigation.navigate('Home');
+        Axios.post(API.updatePassword, {
+          email: this.props.navigation.getParam('email'),
+          newPassword: this.state.formData.password,
+        })
+          .then(res => {
+            console.log('res in resetPassword', res);
+          })
+          .catch(err => {
+            console.log('err in resetpasswrod catch', err.response);
+          });
+        // this.props.navigation.navigate('Home');
       }
     });
   };
@@ -42,6 +54,10 @@ export default class ResetPassword extends React.Component {
   };
 
   render() {
+    console.log(
+      'this.props.navigation.getParams',
+      this.props.navigation.getParam('email'),
+    );
     return (
       <TopHeader showIcons={false}>
         <Header title="Reset Your Password" />
@@ -54,7 +70,7 @@ export default class ResetPassword extends React.Component {
               </Text>
               <Input
                 placeholder="New Password"
-                style={[ApplicationStyles.textbox, {marginTop: '15%'}]}
+                style={[ApplicationStyles.textbox, {marginTop: 5}]}
                 onChangeText={password =>
                   this.onTextInput('password', password)
                 }
@@ -70,7 +86,7 @@ export default class ResetPassword extends React.Component {
               {ErrorLabel('confirmPassword', this.state.errors)}
               <PrimaryButton
                 title="Continue"
-                marginTop="40%"
+                marginTop={5}
                 onPress={this.onSubmit}
               />
             </Form>

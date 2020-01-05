@@ -150,7 +150,7 @@ const AuthStack = createStackNavigator(
   },
   {
     transitionConfig: () => fromRight(500),
-    initialRouteName: 'Signup',
+    initialRouteName: 'Login',
     headerLayoutPreset: 'center',
     navigationOptions: {
       headerStyle: styles.header,
@@ -165,7 +165,7 @@ const App = createSwitchNavigator(
     App: AppStack,
   },
   {
-    initialRouteName: 'App',
+    initialRouteName: 'Splash',
   },
 );
 export default createAppContainer(App);

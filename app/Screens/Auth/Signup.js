@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {Text, LayoutAnimation} from 'react-native';
 import TopHeader from '../../Components/TopHeader';
 import Header from '../../Components/Header';
-import {Content, Form, Item, Input} from 'native-base';
+import {Content, Form, Input} from 'native-base';
 import {ApplicationStyles} from '../../Theme';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import PrimaryButton from '../../Components/Button/PrimaryButton';
 import styles from '../../Styles/auth.styles';
 import WideBanner from '../../Components/Ads/WideBanner';
-import {signupValidation} from '../../Constants/Strings';
 import {GetSignupErrors} from '../../Helpers/GetErrors';
 import ErrorLabel from '../../Components/ErrorLabel/ErrorLabel';
-import Axios from 'axios';
-import API from '../../Constants/API';
-export default class Signup extends Component {
+import {withSignup} from '../../Redux/hoc/withSignup';
+class Signup extends Component {
   constructor(props) {
     super(props);
 
@@ -24,6 +21,9 @@ export default class Signup extends Component {
         email: '',
         password: '',
         confirmPassword: '',
+        roleId: 1,
+        security_question_id: 1,
+        security_question_answer: 'answer',
       },
       errors: ['errors'],
     };
@@ -41,17 +41,16 @@ export default class Signup extends Component {
   };
 
   onSubmit = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
     this.setState({errors: GetSignupErrors(this.state.formData)}, () => {
       if (this.state.errors.length === 0) {
-        Axios.post(API.signup, {...this.state.formData}).then(res =>
-          console.log('res', res),
-        );
-        // this.props.navigation.navigate('Verification');
+        this.props.signupUser(this.state.formData);
       }
     });
   };
 
   render() {
+    console.log('this.props in signup', this.props);
     return (
       <TopHeader showIcons={false}>
         <Header title="Sign Up" />
@@ -67,10 +66,10 @@ export default class Signup extends Component {
             <Input
               placeholder="Username"
               style={ApplicationStyles.textbox}
-              value={this.state.formData.username}
-              onChangeText={val => this.onTextInput('username', val)}
+              value={this.state.formData.userName}
+              onChangeText={val => this.onTextInput('userName', val)}
             />
-            {ErrorLabel('username', this.state.errors)}
+            {ErrorLabel('userName', this.state.errors)}
             <Input
               placeholder="Email"
               keyboardType="email-address"
@@ -94,6 +93,7 @@ export default class Signup extends Component {
             />
             {ErrorLabel('confirmPassword', this.state.errors)}
             <PrimaryButton
+              loading={this.props.loading.name === 'signup'}
               title="Sign Up"
               onPress={this.onSubmit}
               marginTop={50}
@@ -114,3 +114,4 @@ export default class Signup extends Component {
     );
   }
 }
+export default withSignup(Signup);
