@@ -120,7 +120,7 @@ const loginUser = formData => {
     dispatch(setLoadingState({name: 'login'}));
     Axios.post(API.login, {
       userName: formData.userNameOrEmail,
-      password: formData.password,
+      password: formData.loginPassword,
     })
       .then(data => {
         let userData = data.data.data;

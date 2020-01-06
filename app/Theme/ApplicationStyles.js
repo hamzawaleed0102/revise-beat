@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {FONTSIZES} from './Fonts';
+import {FONTSIZES, FONTFAMILY} from './Fonts';
 import Metrics from './Metrics';
 import Colors from './Colors';
 import COLORS from './Colors';
@@ -21,8 +21,9 @@ const ApplicationStyles = StyleSheet.create({
     borderRadius: 4,
     height: 40,
     marginTop: 20,
-    paddingHorizontal: 10,
     fontSize: FONTSIZES.inputLabel,
+    fontFamily: FONTFAMILY.medium,
+    paddingLeft: 15,
   },
   blackTextCenter: {
     color: 'rgba(106, 106, 106, 1)',

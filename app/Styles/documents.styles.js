@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import COLORS from '../Theme/Colors';
 import {Metrics} from '../Theme';
+import {FONTSTYLES, FONTFAMILY} from '../Theme/Fonts';
 
 export default StyleSheet.create({
   container: {
@@ -15,8 +16,9 @@ export default StyleSheet.create({
     opacity: 0.4,
   },
   modelHeading: {
-    fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: FONTFAMILY.bold,
+    fontSize: 15,
   },
   heading: {
     marginTop: 10,
@@ -28,8 +30,9 @@ export default StyleSheet.create({
     marginTop: 10,
     color: 'rgba(106, 106, 106, 1)',
     textAlign: 'center',
-    fontSize: 15,
+    fontSize: 13,
     paddingHorizontal: 20,
+    fontFamily: FONTFAMILY.medium,
   },
   modelContainer: {
     backgroundColor: 'white',
@@ -56,5 +59,11 @@ export default StyleSheet.create({
   uploadedDocContainer: {
     flex: 1,
     padding: 20,
+  },
+  question: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontFamily: FONTFAMILY.medium,
+    color: COLORS.gray,
   },
 });

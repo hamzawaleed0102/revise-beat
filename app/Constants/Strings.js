@@ -27,7 +27,9 @@ export const signupValidation = {
   userName: 'Please enter a valid username',
   email: 'Please enter a valid email address',
   usernameEmail: 'Please enter a valid username or email',
-  password: 'Password must be at least 6 characters',
+  password:
+    'Password should contain at least 8 characters including uppercase, lowercase and number',
+  loginPassword: 'Password is required',
   confirmPassword: 'Passwords do not match',
   userNameOrEmail: 'Please enter a valid username or email',
 };

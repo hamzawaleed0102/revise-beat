@@ -1,8 +1,9 @@
 import {StyleSheet} from 'react-native';
 import COLORS from '../Theme/Colors';
+import {FONTFAMILY} from '../Theme/Fonts';
 export default StyleSheet.create({
   form: {
-    paddingVertical: 10,
+    paddingTop: 40,
     paddingHorizontal: 12,
     // paddingTop: 60,
     // paddingBottom: 10,
@@ -10,6 +11,7 @@ export default StyleSheet.create({
   alreadyAccountLabel: {
     textAlign: 'center',
     marginTop: 22,
+    fontFamily: FONTFAMILY.medium,
   },
   redText: {
     color: COLORS.primary,
@@ -21,12 +23,14 @@ export default StyleSheet.create({
   },
   forgotTxt: {
     color: COLORS.primary,
+    fontFamily: FONTFAMILY.medium,
   },
   topLabel: {
     color: COLORS.blackText,
     textAlign: 'center',
     fontSize: 16,
     paddingHorizontal: '5%',
+    fontFamily: FONTFAMILY.medium,
   },
   passwordFieldContainer: {
     flex: 1,

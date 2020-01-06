@@ -12,6 +12,7 @@ import {
   Button,
   Title,
 } from 'native-base';
+import {FONTFAMILY} from '../../Theme/Fonts';
 
 const Header = ({title, navigation, hideBack = false}) => {
   return (
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center',
     fontSize: 17,
+    fontFamily: FONTFAMILY.medium,
   },
   right: {
     flex: 1,

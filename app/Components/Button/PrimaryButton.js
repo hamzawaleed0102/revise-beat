@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {StyleSheet} from 'react-native';
 import COLORS from '../../Theme/Colors';
-import {FONTSIZES} from '../../Theme/Fonts';
+import {FONTSIZES, FONTFAMILY} from '../../Theme/Fonts';
 import {Metrics} from '../../Theme';
 const PrimaryButton = ({title, onPress, marginTop = 4, disabled, loading}) => {
   return (
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: FONTSIZES.btnLabel,
+    fontFamily: FONTFAMILY.medium,
   },
   spinner: {
     marginRight: 20,

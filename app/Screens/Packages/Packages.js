@@ -94,6 +94,7 @@ class Packages extends React.Component {
         <View style={styles.row}>
           {item.map(pkg => (
             <TouchableOpacity
+              key={pkg.subscription_plan_id}
               style={[
                 styles.card,
                 {

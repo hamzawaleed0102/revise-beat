@@ -1,5 +1,6 @@
 import {StyleSheet, Platform} from 'react-native';
 import COLORS from '../Theme/Colors';
+import {FONTFAMILY} from '../Theme/Fonts';
 
 export default StyleSheet.create({
   container: {
@@ -26,6 +27,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     paddingHorizontal: 10,
+    fontFamily: FONTFAMILY.medium,
   },
   inputWrapStyle: {
     height: 50,
@@ -73,13 +75,13 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: COLORS.primary,
+    fontFamily: FONTFAMILY.extraBold,
   },
   subtitle: {
     fontSize: 15,
-    fontWeight: 'bold',
     color: COLORS.gray,
+    fontFamily: FONTFAMILY.medium,
   },
   card: {
     elevation: 4,

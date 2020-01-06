@@ -26,7 +26,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      formData: {userNameOrEmail: 'ovi', password: '12345678'},
+      formData: {userNameOrEmail: '', loginPassword: ''},
       errors: ['errors'],
       hidePassword: true,
       modalVisible: false,
@@ -63,7 +63,8 @@ class Login extends Component {
   };
 
   render() {
-    console.log('this.props.user', this.props.user);
+    console.log('this.props.user in login', this.props.user);
+    console.log('this.state.errors in login', this.state.errors);
     return (
       <TopHeader showIcons={false}>
         <Header title="Sign In" hideBack />
@@ -81,7 +82,8 @@ class Login extends Component {
                 placeholder="Password"
                 secureTextEntry={this.state.hidePassword}
                 style={ApplicationStyles.textbox}
-                onChangeText={val => this.onTextInput('password', val)}
+                onChangeText={val => this.onTextInput('loginPassword', val)}
+                maxLength={16}
               />
 
               <TouchableOpacity
@@ -102,7 +104,7 @@ class Login extends Component {
                 )}
               </TouchableOpacity>
             </View>
-            {ErrorLabel('password', this.state.errors)}
+            {ErrorLabel('loginPassword', this.state.errors)}
             <TouchableOpacity
               style={styles.forgotBtn}
               onPress={() => this.props.navigation.navigate('Forgot')}>
@@ -124,9 +126,9 @@ class Login extends Component {
                 Sign Up
               </Text>
             </Text>
-            <WideBanner />
           </Form>
         </Content>
+        <WideBanner />
         <SecurityQuestion
           // only visible in login case
           modalVisible={

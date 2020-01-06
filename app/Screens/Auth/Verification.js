@@ -31,7 +31,9 @@ class Verification extends React.Component {
     if (Number(this.state.userInput) === this.state.verificationCode) {
       const type = this.props.navigation.getParam('type');
       if (type === 'ResetPassword') {
-        this.props.navigation.navigate('ResetPassword');
+        this.props.navigation.navigate('ResetPassword', {
+          email: this.props.navigation.getParam('email'),
+        });
       } else if (type === 'Signup') {
         this.props.verifyEmail(this.props.user.user_id, type);
       }
@@ -54,7 +56,9 @@ class Verification extends React.Component {
   };
 
   resendCode = () => {
-    Axios.post(API.sendVerificationCode, {to: this.props.user.email})
+    Axios.post(API.sendVerificationCode, {
+      to: this.props.navigation.getParam('email'),
+    })
       .then(res => {
         this.setState({verificationCode: res.data.data.code});
         Alert.alert('Success', res.data.message);
@@ -72,11 +76,6 @@ class Verification extends React.Component {
   colors = ['#ff595f', '#e42959'];
 
   render() {
-    console.log('this.props.user in verification', this.props.user);
-    console.log(
-      'this.props.navigation.getParam',
-      this.props.navigation.getParam('type'),
-    );
     return (
       <TopHeader showIcons={false}>
         <Header title="Verify Your Email" hideBack />
@@ -117,13 +116,13 @@ class Verification extends React.Component {
               <PrimaryButton
                 title="Verify"
                 loading={this.props.loading.name === 'Verification'}
-                marginTop={40}
+                marginTop={10}
                 onPress={this.verifyCode}
               />
             </View>
-            <WideBanner />
           </View>
         </Content>
+        <WideBanner />
       </TopHeader>
     );
   }

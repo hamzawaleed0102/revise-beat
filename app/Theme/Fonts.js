@@ -1,7 +1,8 @@
 const FONTFAMILY = {
-  base: 'Avenir-Book',
-  bold: 'Avenir-Black',
-  emphasis: 'HelveticaNeue-Italic',
+  medium: 'Montserrat-Medium',
+  regular: 'Montserrat-Regular',
+  bold: 'Montserrat-SemiBold',
+  extraBold: 'Montserrat-Bold',
 };
 
 const FONTSIZES = {

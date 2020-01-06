@@ -18,8 +18,8 @@ const SecurityQuestion = ({
         <Text style={styles.modelSubheading}>
           Please answer this question before accessing sensitive information
         </Text>
-        <Text style={{textAlign: 'center', marginTop: 20}}>
-          <Text style={{fontWeight: 'bold'}}>Q: </Text>
+        <Text style={styles.question}>
+          <Text style={{fontWeight: 'bold', color: 'black'}}>Q: </Text>
           {user.security_question}
         </Text>
         <TextInput

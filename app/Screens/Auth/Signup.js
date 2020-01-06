@@ -82,6 +82,8 @@ class Signup extends Component {
               placeholder="Password"
               style={ApplicationStyles.textbox}
               value={this.state.formData.password}
+              maxLength={16}
+              secureTextEntry={true}
               onChangeText={val => this.onTextInput('password', val)}
             />
             {ErrorLabel('password', this.state.errors)}
@@ -89,6 +91,8 @@ class Signup extends Component {
               placeholder="Confirm Password"
               value={this.state.formData.confirmPassword}
               style={ApplicationStyles.textbox}
+              maxLength={16}
+              secureTextEntry={true}
               onChangeText={val => this.onTextInput('confirmPassword', val)}
             />
             {ErrorLabel('confirmPassword', this.state.errors)}
@@ -96,7 +100,7 @@ class Signup extends Component {
               loading={this.props.loading.name === 'signup'}
               title="Sign Up"
               onPress={this.onSubmit}
-              marginTop={50}
+              marginTop={8}
             />
 
             <Text style={styles.alreadyAccountLabel}>

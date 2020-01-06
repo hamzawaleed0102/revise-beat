@@ -1,4 +1,4 @@
-import {checkEmail, checkName} from './Validations';
+import {checkEmail, checkName, checkPassword} from './Validations';
 
 export const GetSignupErrors = formData => {
   const errors = [];
@@ -7,6 +7,9 @@ export const GetSignupErrors = formData => {
     if (i === 'confirmPassword') {
       if (formData.password !== formData.confirmPassword) {
         errors.push('confirmPassword');
+      }
+      if (!checkPassword(formData.password)) {
+        errors.push('password');
       }
     } else if (i === 'email') {
       if (!checkEmail(formData.email)) {
