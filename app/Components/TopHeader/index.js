@@ -1,8 +1,29 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, Alert} from 'react-native';
 import {Metrics, Colors} from '../../Theme';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import store from '../../Redux/STORE';
+import {logoutUserAct} from '../../Redux/actions/userAction';
+import AsyncStorage from '@react-native-community/async-storage';
+import NavigationService from '../../../NavigationService';
+const userPress = () => {
+  Alert.alert('Confirm', 'Are you you want to log out?', [
+    {
+      text: 'No',
+      onPress: () => {},
+    },
+    {
+      text: 'Yes',
+      onPress: () => {
+        AsyncStorage.clear();
+        store.dispatch(logoutUserAct());
+        NavigationService.navigate('Auth');
+      },
+    },
+  ]);
+};
+
 const TopHeader = ({children, showIcons = true}) => {
   return (
     <View style={styles.root}>
@@ -33,7 +54,7 @@ const TopHeader = ({children, showIcons = true}) => {
           <View style={styles.rightIconsContainer}>
             {showIcons && (
               <>
-                <TouchableOpacity style={styles.userIcon}>
+                <TouchableOpacity style={styles.userIcon} onPress={userPress}>
                   <Image
                     source={require('../../../assets/icons/header/user-fill.png')}
                   />

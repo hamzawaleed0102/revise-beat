@@ -10,8 +10,7 @@ export default (state = initialState, action) => {
     case LOGIN_USER:
       return {...state, user: action.user};
     case LOGOUT_USER:
-      const {user, ...newState} = state;
-      return {newState};
+      return initialState;
     case SET_LOADING_STATE:
       return {...state, loading: action.loading};
 

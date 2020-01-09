@@ -3,9 +3,10 @@ import {View, Text} from 'react-native';
 import {StyleSheet} from 'react-native';
 const WideBanner = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>320x50 Google Ad</Text>
-    </View>
+    <View />
+    // <View style={styles.container}>
+    //   <Text style={styles.label}>320x50 Google Ad</Text>
+    // </View>
   );
 };
 

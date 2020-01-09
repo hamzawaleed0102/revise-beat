@@ -32,6 +32,11 @@ class ResetPassword extends React.Component {
     this.setState({errors: GetSignupErrors(this.state.formData)}, () => {
       if (this.state.errors.length === 0) {
         store.dispatch(setLoadingState({name: 'updatingPassword'}));
+        console.log('emailllllllll', this.props.navigation.getParam('email'));
+        console.log(
+          'this.state.formData.password',
+          this.state.formData.password,
+        );
         Axios.post(API.updatePassword, {
           email: this.props.navigation.getParam('email'),
           newPassword: this.state.formData.password,
@@ -40,6 +45,7 @@ class ResetPassword extends React.Component {
             this.props.navigation.navigate('Home');
           })
           .catch(err => {
+            console.log('err', err);
             Alert.alert('Failed', 'Unable to update password. Please retry');
           })
           .finally(() => store.dispatch(setLoadingState({})));
@@ -70,6 +76,7 @@ class ResetPassword extends React.Component {
             </Text>
             <Input
               placeholder="New Password"
+              secureTextEntry={true}
               maxLength={16}
               style={[ApplicationStyles.textbox, {marginTop: 50}]}
               onChangeText={password => this.onTextInput('password', password)}
@@ -77,6 +84,7 @@ class ResetPassword extends React.Component {
             {ErrorLabel('password', this.state.errors)}
             <Input
               placeholder="Confirm Password"
+              secureTextEntry={true}
               maxLength={16}
               style={[ApplicationStyles.textbox]}
               onChangeText={confirmPassword =>

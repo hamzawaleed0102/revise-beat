@@ -19,7 +19,8 @@ export const GetSignupErrors = formData => {
       // no @, no empty char
       if (
         formData.userName.indexOf('@') !== -1 ||
-        formData.userName.indexOf(' ') !== -1
+        formData.userName.indexOf(' ') !== -1 ||
+        formData.userName.length < 5
       ) {
         errors.push('userName');
       } else if (formData.userName.trim() === '') {

@@ -6,7 +6,7 @@ import {loginUserAct} from '../../Redux/actions/userAction';
 import AsyncStorage from '@react-native-community/async-storage';
 export default class HomeScreen extends Component {
   async componentDidMount() {
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
     let user = await AsyncStorage.getItem('user');
     if (user) {
       user = JSON.parse(user);

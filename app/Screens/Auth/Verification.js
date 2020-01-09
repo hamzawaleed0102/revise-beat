@@ -57,7 +57,7 @@ class Verification extends React.Component {
 
   resendCode = () => {
     Axios.post(API.sendVerificationCode, {
-      to: this.props.navigation.getParam('email'),
+      email: this.props.navigation.getParam('email') || this.props.user.email,
     })
       .then(res => {
         this.setState({verificationCode: res.data.data.code});
@@ -66,7 +66,7 @@ class Verification extends React.Component {
       .catch(e =>
         Alert.alert(
           'Error',
-          'Unable to send verification emaili, Please retry later.',
+          'Unable to send verification email, Please retry later.',
         ),
       );
     this.setState({resendTime: 60});

@@ -4,13 +4,13 @@ const productionAndroid = 'http://myapp.com/';
 const productionIOS = 'http://myapp.com';
 const mode = {
   developement: 'http://192.168.10.87:5000/',
-  QA: 'http://192.168.10.87:9001/',
+  QA: 'http://178.62.50.175:5000/',
   production: Platform.OS === 'android' ? productionAndroid : productionIOS,
 };
 
 const apiURL = 'revisebeat/api/v1';
 
-const baseURL = mode.developement; //Change development mode
+const baseURL = mode.QA; //Change development mode
 
 const API = {
   signup: baseURL + apiURL + '/signup',

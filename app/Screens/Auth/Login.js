@@ -56,7 +56,9 @@ class Login extends Component {
   handleSecurityVerification = () => {
     const {inputSecurityAnswer} = this.state;
     if (this.props.user.security_question_answer === inputSecurityAnswer) {
-      this.props.navigation.navigate('App');
+      AsyncStorage.setItem('user', JSON.stringify(this.props.user)).then(() =>
+        this.props.navigation.navigate('App'),
+      );
     } else {
       Alert.alert('Oops', 'Invalid security answer');
     }

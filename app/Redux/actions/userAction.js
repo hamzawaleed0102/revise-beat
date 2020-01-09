@@ -21,18 +21,14 @@ export const logoutUserAct = () => ({
   type: LOGOUT_USER,
 });
 
-const setTokenInHeaders = async token => {
-  Axios.defaults.headers.common.Authorization = `${token}`;
+const setTokenInHeaders = token => {
+  Axios.defaults.headers.common.Authorization = token;
 };
 
 const signupUser = formData => {
   return dispatch => {
     dispatch(setLoadingState({name: 'signup'}));
-    let formDataObj = new FormData();
-    for (var key in formData) {
-      formDataObj.append(key, formData[key]);
-    }
-    Axios.post(API.signup, formDataObj)
+    Axios.post(API.signup, formData)
       .then(data => {
         let userData = data.data.data;
         console.log('userData', userData);
@@ -47,9 +43,17 @@ const signupUser = formData => {
         });
       })
       .catch(err => {
-        Alert.alert('Failed', err.response.data.message);
         console.log('CATCH IN SIGNUP--', err.response.data.message);
-        // Alert.alert('Oops!', err);
+        if (typeof err.response.data.message === 'object') {
+          if (err.response.data.message.error.userName) {
+            Alert.alert('Failed', err.response.data.message.error.userName);
+          }
+          if (err.response.data.message.error.email) {
+            Alert.alert('Failed', err.response.data.message.error.email);
+          }
+        } else {
+          Alert.alert('Oops!', err.response.data.message);
+        }
       })
       .finally(() => dispatch(setLoadingState({})));
   };
@@ -128,9 +132,7 @@ const loginUser = formData => {
         dispatch(loginUserAct(userData));
         console.log('dispatched');
         setTokenInHeaders(userData.token);
-        AsyncStorage.setItem('user', JSON.stringify(userData)).then(() =>
-          dispatch(loginUserAct(userData)),
-        );
+        dispatch(loginUserAct(userData));
       })
       .catch(err => {
         Alert.alert('Failed', err.response.data.message);

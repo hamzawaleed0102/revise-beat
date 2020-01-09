@@ -24,7 +24,7 @@ class ForgotPassword extends React.Component {
 
   handleContinueBtn = () => {
     store.dispatch(setLoadingState({name: 'sendingEmail'}));
-    Axios.post(API.sendVerificationCode, {to: this.state.formData.email})
+    Axios.post(API.sendVerificationCode, {email: this.state.formData.email})
       .then(res => {
         this.props.navigation.navigate('Verification', {
           verificationCode: res.data.data.code,
@@ -32,12 +32,7 @@ class ForgotPassword extends React.Component {
           email: this.state.formData.email,
         });
       })
-      .catch(e =>
-        Alert.alert(
-          'Error',
-          'Unable to send verification email, Please retry later.',
-        ),
-      )
+      .catch(e => Alert.alert('Error', e.response.data.message))
       .finally(() => store.dispatch(setLoadingState({})));
   };
 

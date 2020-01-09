@@ -161,7 +161,7 @@ const AuthStack = createStackNavigator(
 const App = createSwitchNavigator(
   {
     Splash: SplashScreen,
-    Auth: {screen: AuthStack},
+    Auth: AuthStack,
     App: AppStack,
   },
   {
