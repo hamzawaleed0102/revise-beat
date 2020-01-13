@@ -38,11 +38,11 @@ const icons = {
   },
   Genres: {
     simple: require('../../assets/icons/tab/music-fill.png'),
-    hover: require('../../assets/icons/tab/music-fill.png'),
+    hover: require('../../assets/icons/tab/red/genre.png'),
   },
   Player: {
-    simple: require('../../assets/icons/tab/music-fill.png'),
-    hover: require('../../assets/icons/tab/music-fill.png'),
+    simple: require('../../assets/icons/tab/music-player-fill.png'),
+    hover: require('../../assets/icons/tab/red/rb-fill.png'),
   },
   Playlist: {
     simple: require('../../assets/icons/tab/play-list-fill.png'),

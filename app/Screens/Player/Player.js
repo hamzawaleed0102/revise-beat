@@ -11,7 +11,7 @@ export default class Player extends Component {
   render() {
     return (
       <TopHeader>
-        <Header title="Type or Upload Document" hideBack />
+        <Header title="ReviseBeat" hideBack />
         <View style={styles.container}>
           <WideBanner />
           <Content contentContainerStyle={styles.notesContainer}>

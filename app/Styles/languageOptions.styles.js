@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../Theme';
 import COLORS from '../Theme/Colors';
+import {FONTFAMILY} from '../Theme/Fonts';
 
 export default StyleSheet.create({
   heading: {
-    fontWeight: 'bold',
+    fontFamily: FONTFAMILY.bold,
   },
   container: {
     flex: 1,
@@ -28,5 +29,6 @@ export default StyleSheet.create({
   },
   listLabel: {
     color: COLORS.blackText,
+    fontFamily: FONTFAMILY.regular,
   },
 });

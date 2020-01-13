@@ -6,16 +6,20 @@ import IMAGES from '../../Theme/Images';
 import styles from '../../Styles/languageOptions.styles';
 const langs = [
   {
-    id: 1,
-    title: 'English',
+    id: 3,
+    title: 'English (US)',
   },
   {
     id: 2,
-    title: 'English UK',
+    title: 'English (UK)',
   },
   {
-    id: 3,
-    title: 'English uSA',
+    id: 4,
+    title: 'French',
+  },
+  {
+    id: 1,
+    title: 'Spanish',
   },
 ];
 export default class LanguageOptions extends Component {

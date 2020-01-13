@@ -89,7 +89,10 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 80,
     borderBottomLeftRadius: 80,
   },
-  logo: {},
+  logo: {
+    width: 70,
+    height: 70,
+  },
   circle: {
     backgroundColor: 'white',
     height: 1400,

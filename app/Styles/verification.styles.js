@@ -59,6 +59,7 @@ export default StyleSheet.create({
   resendText: {
     color: COLORS.primary,
     fontStyle: 'italic',
+    textDecorationLine: 'underline',
   },
   row: {
     flexDirection: 'row',
