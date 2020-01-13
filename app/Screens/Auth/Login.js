@@ -29,7 +29,7 @@ class Login extends Component {
       formData: {userNameOrEmail: '', loginPassword: ''},
       errors: ['errors'],
       hidePassword: true,
-      modalVisible: false,
+      showSecurityQuestionModel: false,
       inputSecurityAnswer: '',
     };
   }
@@ -48,8 +48,17 @@ class Login extends Component {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     this.setState({errors: GetSignupErrors(this.state.formData)}, () => {
       if (this.state.errors.length === 0) {
-        this.props.loginUser(this.state.formData);
+        this.props.loginUser(
+          this.state.formData,
+          this.showSecurityQuestionModel,
+        );
       }
+    });
+  };
+
+  showSecurityQuestionModel = () => {
+    this.setState({
+      showSecurityQuestionModel: !this.state.showSecurityQuestionModel,
     });
   };
 
@@ -65,8 +74,6 @@ class Login extends Component {
   };
 
   render() {
-    console.log('this.props.user in login', this.props.user);
-    console.log('this.state.errors in login', this.state.errors);
     return (
       <TopHeader showIcons={false}>
         <Header title="Sign In" hideBack />
@@ -132,11 +139,7 @@ class Login extends Component {
         </Content>
         <WideBanner />
         <SecurityQuestion
-          // only visible in login case
-          modalVisible={
-            this.props.user.email_verified === 1 &&
-            this.props.user.subscription_plan_id != null
-          }
+          modalVisible={this.state.showSecurityQuestionModel}
           user={this.props.user}
           handleSecurityVerification={this.handleSecurityVerification}
           onTextChange={inputSecurityAnswer =>

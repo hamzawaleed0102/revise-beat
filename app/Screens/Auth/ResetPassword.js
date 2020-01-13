@@ -1,9 +1,9 @@
 /* eslint-disable handle-callback-err */
-import React, {useCallback} from 'react';
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import React from 'react';
+import {Text, Alert, Image, TouchableOpacity} from 'react-native';
 import styles from '../../Styles/auth.styles';
 import PrimaryButton from '../../Components/Button/PrimaryButton.js';
-import {Content, Input, Form} from 'native-base';
+import {Content, Input, Form, Icon, View} from 'native-base';
 import WideBanner from '../../Components/Ads/WideBanner.js';
 import TopHeader from '../../Components/TopHeader/index.js';
 import Header from '../../Components/Header/index.js';
@@ -15,6 +15,8 @@ import API from '../../Constants/API';
 import store from '../../Redux/STORE';
 import {setLoadingState} from '../../Redux/actions/userAction';
 import {withSignup} from '../../Redux/hoc/withSignup';
+import COLORS from '../../Theme/Colors';
+import authStyles from '../../Styles/auth.styles';
 class ResetPassword extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +27,8 @@ class ResetPassword extends React.Component {
         confirmPassword: '',
       },
       errors: ['email'],
+      isPasswordFieldSecure: true,
+      isConfirmPasswordFieldSecure: true,
     };
   }
 
@@ -32,11 +36,6 @@ class ResetPassword extends React.Component {
     this.setState({errors: GetSignupErrors(this.state.formData)}, () => {
       if (this.state.errors.length === 0) {
         store.dispatch(setLoadingState({name: 'updatingPassword'}));
-        console.log('emailllllllll', this.props.navigation.getParam('email'));
-        console.log(
-          'this.state.formData.password',
-          this.state.formData.password,
-        );
         Axios.post(API.updatePassword, {
           email: this.props.navigation.getParam('email'),
           newPassword: this.state.formData.password,
@@ -74,23 +73,72 @@ class ResetPassword extends React.Component {
               Choose a strong new password. Make sure it includes a number and a
               capital letter
             </Text>
-            <Input
-              placeholder="New Password"
-              secureTextEntry={true}
-              maxLength={16}
-              style={[ApplicationStyles.textbox, {marginTop: 50}]}
-              onChangeText={password => this.onTextInput('password', password)}
-            />
+
+            <View style={authStyles.passwordFieldContainer}>
+              <Input
+                placeholder="New Password"
+                secureTextEntry={this.state.isPasswordFieldSecure}
+                maxLength={16}
+                style={ApplicationStyles.textbox}
+                onChangeText={password =>
+                  this.onTextInput('password', password)
+                }
+              />
+
+              <TouchableOpacity
+                style={authStyles.eyeIcon}
+                onPress={() =>
+                  this.setState({
+                    isPasswordFieldSecure: !this.state.isPasswordFieldSecure,
+                  })
+                }>
+                {!this.state.isPasswordFieldSecure && (
+                  <Icon
+                    name="eye"
+                    style={{fontSize: 18, color: COLORS.primary}}
+                  />
+                )}
+                {this.state.isPasswordFieldSecure && (
+                  <Image
+                    source={require('../../../assets/icons/forms/eye-close-fill.png')}
+                  />
+                )}
+              </TouchableOpacity>
+            </View>
+
             {ErrorLabel('password', this.state.errors)}
-            <Input
-              placeholder="Confirm Password"
-              secureTextEntry={true}
-              maxLength={16}
-              style={[ApplicationStyles.textbox]}
-              onChangeText={confirmPassword =>
-                this.onTextInput('confirmPassword', confirmPassword)
-              }
-            />
+            <View style={styles.passwordFieldContainer}>
+              <Input
+                placeholder="Confirm Password"
+                secureTextEntry={this.state.isConfirmPasswordFieldSecure}
+                maxLength={16}
+                style={[ApplicationStyles.textbox]}
+                onChangeText={confirmPassword =>
+                  this.onTextInput('confirmPassword', confirmPassword)
+                }
+              />
+              <TouchableOpacity
+                style={styles.eyeIcon}
+                onPress={() =>
+                  this.setState({
+                    isConfirmPasswordFieldSecure: !this.state
+                      .isConfirmPasswordFieldSecure,
+                  })
+                }>
+                {!this.state.isConfirmPasswordFieldSecure && (
+                  <Icon
+                    name="eye"
+                    style={{fontSize: 18, color: COLORS.primary}}
+                  />
+                )}
+                {this.state.isConfirmPasswordFieldSecure && (
+                  <Image
+                    source={require('../../../assets/icons/forms/eye-close-fill.png')}
+                  />
+                )}
+              </TouchableOpacity>
+            </View>
+
             {ErrorLabel('confirmPassword', this.state.errors)}
             <PrimaryButton
               title="Continue"

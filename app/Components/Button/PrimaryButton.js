@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     paddingHorizontal: 63,
-    paddingVertical: 8,
+    paddingVertical: 12,
   },
   row: {
     flexDirection: 'row',
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: FONTSIZES.btnLabel,
-    fontFamily: FONTFAMILY.medium,
+    fontFamily: FONTFAMILY.bold,
   },
   spinner: {
     marginRight: 20,

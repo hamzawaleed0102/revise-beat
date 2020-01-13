@@ -8,7 +8,7 @@ import {logoutUserAct} from '../../Redux/actions/userAction';
 import AsyncStorage from '@react-native-community/async-storage';
 import NavigationService from '../../../NavigationService';
 const userPress = () => {
-  Alert.alert('Confirm', 'Are you you want to log out?', [
+  Alert.alert('Confirm', 'Are you sure you want to log out?', [
     {
       text: 'No',
       onPress: () => {},

@@ -13,7 +13,8 @@ const mapdispatchToProps = dispatch => ({
   signupUser: formData => dispatch(signupUser(formData)),
   updateUser: (formData, type) => dispatch(updateUser(formData, type)),
   verifyEmail: (formData, type) => dispatch(verifyEmail(formData, type)),
-  loginUser: formData => dispatch(loginUser(formData)),
+  loginUser: (formData, showSecurityQuestionModel) =>
+    dispatch(loginUser(formData, showSecurityQuestionModel)),
 });
 
 export const withSignup = Component => {

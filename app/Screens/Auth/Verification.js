@@ -11,14 +11,14 @@ import CountdownCircle from 'react-native-countdown-circle';
 import {withSignup} from '../../Redux/hoc/withSignup.js';
 import Axios from 'axios';
 import API from '../../Constants/API.js';
+import AsyncStorage from '@react-native-community/async-storage';
 class Verification extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       userInput: '',
-      resendDisabled: false,
-      resendTime: 60,
+      resendTime: 0,
       verificationCode: props.navigation.getParam('verificationCode'),
     };
   }
@@ -35,6 +35,8 @@ class Verification extends React.Component {
           email: this.props.navigation.getParam('email'),
         });
       } else if (type === 'Signup') {
+        this.props.verifyEmail(this.props.user.user_id, type);
+      } else if (type === 'UnverifiedLogin') {
         this.props.verifyEmail(this.props.user.user_id, type);
       }
     } else {
@@ -76,6 +78,8 @@ class Verification extends React.Component {
   colors = ['#ff595f', '#e42959'];
 
   render() {
+    console.log('verificationCode', this.state.verificationCode);
+    console.log('this.props.user.user_id', this.props.user.user_id);
     return (
       <TopHeader showIcons={false}>
         <Header title="Verify Your Email" hideBack />

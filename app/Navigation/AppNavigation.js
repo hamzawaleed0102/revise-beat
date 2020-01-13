@@ -110,6 +110,10 @@ const AppStack = createStackNavigator(
       screen: DocumentUploaded,
       navigationOptions: {header: null},
     },
+    Packages: {
+      screen: PackagesScreen,
+      navigationOptions: {header: null},
+    },
   },
   {
     transitionConfig: () => fromRight(500),

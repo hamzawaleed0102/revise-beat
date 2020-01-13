@@ -34,12 +34,10 @@ const signupUser = formData => {
         console.log('userData', userData);
         console.log('dispatched');
         setTokenInHeaders(userData.token);
-        AsyncStorage.setItem('user', JSON.stringify(userData)).then(() => {
-          dispatch(loginUserAct(userData));
-          NavigationService.navigate('Verification', {
-            verificationCode: userData.verificationCode,
-            type: 'Signup',
-          });
+        dispatch(loginUserAct(userData));
+        NavigationService.navigate('Verification', {
+          verificationCode: userData.verificationCode,
+          type: 'Signup',
         });
       })
       .catch(err => {
@@ -76,24 +74,12 @@ const updateUser = (formData, type) => {
         }
       });
     });
-    // Axios({
-    //   method: 'put',
-    //   url: API.update + formData.user_id,
-    //   headers: {
-    //     'content-type': 'application/json',
-    //     Authorization: Axios.defaults.headers.common.Authorization,
-    //   },
-    //   data: {verifyEmail: true},
-    // })
-    //   .catch(err => {
-    //     console.log('CATCH IN update--', err);
-    //   })
-    //   .finally(() => dispatch(setLoadingState({})));
   };
 };
 
 const verifyEmail = (userID, type) => {
-  console.log('type', type);
+  console.log('userID in verifyEmail', userID);
+  console.log('type in verifyEmail', type);
   return dispatch => {
     dispatch(setLoadingState({name: 'Verification'}));
     Axios.put(
@@ -109,17 +95,19 @@ const verifyEmail = (userID, type) => {
           dispatch(loginUserAct(userData));
           if (type === 'Signup') {
             NavigationService.navigate('Packages');
+          } else if (type === 'UnverifiedLogin') {
+            NavigationService.navigate('App');
           }
         });
       })
       .catch(err => {
-        console.log('CATCH IN verify email--', err);
+        console.log('CATCH IN verify email--', err.response);
       })
       .finally(() => dispatch(setLoadingState({})));
   };
 };
 
-const loginUser = formData => {
+const loginUser = (formData, showSecurityQuestionModel) => {
   return dispatch => {
     dispatch(setLoadingState({name: 'login'}));
     Axios.post(API.login, {
@@ -130,12 +118,37 @@ const loginUser = formData => {
         let userData = data.data.data;
         console.log('userData after login', userData);
         dispatch(loginUserAct(userData));
-        console.log('dispatched');
         setTokenInHeaders(userData.token);
-        dispatch(loginUserAct(userData));
+        showSecurityQuestionModel();
+        console.log('dispatched');
       })
       .catch(err => {
-        Alert.alert('Failed', err.response.data.message);
+        // if user response object exists
+        if (
+          err.response.data.data &&
+          err.response.data.data.email_verified === 0
+        ) {
+          let userData = err.response.data.data;
+          setTokenInHeaders(userData.token);
+          dispatch(loginUserAct(userData));
+          Axios.post(API.sendVerificationCode, {
+            email: formData.userNameOrEmail,
+          })
+            .then(res => {
+              NavigationService.navigate('Verification', {
+                verificationCode: res.data.data.code,
+                type: 'UnverifiedLogin',
+              });
+            })
+            .catch(e =>
+              Alert.alert(
+                'Error',
+                'Unable to send verification email, Please retry later.',
+              ),
+            );
+        } else {
+          Alert.alert('Failed', err.response.data.message);
+        }
       })
       .finally(() => dispatch(setLoadingState({})));
   };

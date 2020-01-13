@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
-import {Text, LayoutAnimation} from 'react-native';
+import {
+  Text,
+  LayoutAnimation,
+  View,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import TopHeader from '../../Components/TopHeader';
 import Header from '../../Components/Header';
-import {Content, Form, Input} from 'native-base';
+import {Content, Form, Input, Icon} from 'native-base';
 import {ApplicationStyles} from '../../Theme';
 import PrimaryButton from '../../Components/Button/PrimaryButton';
 import styles from '../../Styles/auth.styles';
@@ -10,6 +16,7 @@ import WideBanner from '../../Components/Ads/WideBanner';
 import {GetSignupErrors} from '../../Helpers/GetErrors';
 import ErrorLabel from '../../Components/ErrorLabel/ErrorLabel';
 import {withSignup} from '../../Redux/hoc/withSignup';
+import COLORS from '../../Theme/Colors';
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +32,8 @@ class Signup extends Component {
         security_question_id: 1,
         security_question_answer: 'answer',
       },
+      isPasswordFieldSecure: true,
+      isConfirmPasswordFieldSecure: true,
       errors: ['errors'],
     };
   }
@@ -78,27 +87,72 @@ class Signup extends Component {
               onChangeText={val => this.onTextInput('email', val)}
             />
             {ErrorLabel('email', this.state.errors)}
-            <Input
-              placeholder="Password"
-              style={ApplicationStyles.textbox}
-              value={this.state.formData.password}
-              maxLength={16}
-              secureTextEntry={true}
-              onChangeText={val => this.onTextInput('password', val)}
-            />
+            <View style={styles.passwordFieldContainer}>
+              <Input
+                placeholder="Password"
+                style={ApplicationStyles.textbox}
+                value={this.state.formData.password}
+                maxLength={16}
+                secureTextEntry={this.state.isPasswordFieldSecure}
+                onChangeText={val => this.onTextInput('password', val)}
+              />
+
+              <TouchableOpacity
+                style={styles.eyeIcon}
+                onPress={() =>
+                  this.setState({
+                    isPasswordFieldSecure: !this.state.isPasswordFieldSecure,
+                  })
+                }>
+                {!this.state.isPasswordFieldSecure && (
+                  <Icon
+                    name="eye"
+                    style={{fontSize: 18, color: COLORS.primary}}
+                  />
+                )}
+                {this.state.isPasswordFieldSecure && (
+                  <Image
+                    source={require('../../../assets/icons/forms/eye-close-fill.png')}
+                  />
+                )}
+              </TouchableOpacity>
+            </View>
             {ErrorLabel('password', this.state.errors)}
-            <Input
-              placeholder="Confirm Password"
-              value={this.state.formData.confirmPassword}
-              style={ApplicationStyles.textbox}
-              maxLength={16}
-              secureTextEntry={true}
-              onChangeText={val => this.onTextInput('confirmPassword', val)}
-            />
+            <View style={styles.passwordFieldContainer}>
+              <Input
+                placeholder="Confirm Password"
+                value={this.state.formData.confirmPassword}
+                style={ApplicationStyles.textbox}
+                maxLength={16}
+                secureTextEntry={this.state.isConfirmPasswordFieldSecure}
+                onChangeText={val => this.onTextInput('confirmPassword', val)}
+              />
+              <TouchableOpacity
+                style={styles.eyeIcon}
+                onPress={() =>
+                  this.setState({
+                    isConfirmPasswordFieldSecure: !this.state
+                      .isConfirmPasswordFieldSecure,
+                  })
+                }>
+                {!this.state.isConfirmPasswordFieldSecure && (
+                  <Icon
+                    name="eye"
+                    style={{fontSize: 18, color: COLORS.primary}}
+                  />
+                )}
+                {this.state.isConfirmPasswordFieldSecure && (
+                  <Image
+                    source={require('../../../assets/icons/forms/eye-close-fill.png')}
+                  />
+                )}
+              </TouchableOpacity>
+            </View>
+
             {ErrorLabel('confirmPassword', this.state.errors)}
             <PrimaryButton
               loading={this.props.loading.name === 'signup'}
-              title="Sign Up"
+              title="Sign up"
               onPress={this.onSubmit}
               marginTop={8}
             />

@@ -20,10 +20,11 @@ export default StyleSheet.create({
   forgotBtn: {
     alignSelf: 'flex-end',
     marginTop: 20,
+    padding: 6,
   },
   forgotTxt: {
     color: COLORS.primary,
-    fontFamily: FONTFAMILY.medium,
+    fontFamily: FONTFAMILY.bold,
   },
   topLabel: {
     color: COLORS.blackText,
@@ -38,6 +39,7 @@ export default StyleSheet.create({
   eyeIcon: {
     position: 'absolute',
     right: 15,
-    top: 32,
+    top: 27,
+    padding: 6,
   },
 });

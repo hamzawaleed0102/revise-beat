@@ -30,8 +30,8 @@ const ApplicationStyles = StyleSheet.create({
     textAlign: 'center',
   },
   errorLabel: {
-    fontWeight: 'bold',
     color: COLORS.primary,
+    fontFamily: FONTFAMILY.medium,
   },
 });
 

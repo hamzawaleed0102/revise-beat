@@ -92,8 +92,8 @@ export default StyleSheet.create({
     borderRadius: 6,
   },
   name: {
-    fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: FONTFAMILY.bold,
   },
   price: {
     fontWeight: 'bold',

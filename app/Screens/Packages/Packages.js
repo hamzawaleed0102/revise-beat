@@ -115,7 +115,7 @@ class Packages extends React.Component {
               <Text style={styles.name}>
                 {pkg.subscription_plan_name + '\n'} for
               </Text>
-              <Text style={styles.price}>{pkg.subscription_plan_price}</Text>
+              <Text style={styles.price}>£{pkg.subscription_plan_price}</Text>
             </TouchableOpacity>
           ))}
         </View>
