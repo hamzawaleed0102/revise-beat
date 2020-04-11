@@ -1,4 +1,4 @@
-export const setLanguageAndCache = (lang, cache, styles) => {
+const setLanguageAndCache = (lang, cache, styles) => {
   return {
     type: "SET_LANG_&_CACHE",
     lang: lang,
@@ -7,21 +7,21 @@ export const setLanguageAndCache = (lang, cache, styles) => {
   };
 };
 
-export const setCache = cache => {
+const setCache = cache => {
   return {
     type: "SET_CACHE",
     cache: cache
   };
 };
 
-export const setUser = data => {
+const setUser = data => {
   return {
     type: "SET_USER",
     user: data
   };
 };
 
-export const setLang = lang => {
+const setLang = lang => {
   return {
     type: "SET_LANG",
     lang: lang
@@ -48,3 +48,5 @@ export const setNotif = data => {
     notificationData: data
   };
 };
+
+export default {setNotif, setStyles, setUserAndLang, setLanguageAndCache, setCache, setUser, setLang}
