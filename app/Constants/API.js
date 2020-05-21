@@ -1,11 +1,9 @@
 import {Platform} from 'react-native';
 
-const productionAndroid = 'http://myapp.com/';
-const productionIOS = 'http://myapp.com';
 const mode = {
   developement: 'http://192.168.10.87:5000/',
   QA: 'http://178.62.50.175:5000/',
-  production: Platform.OS === 'android' ? productionAndroid : productionIOS,
+  production: 'http://myapp.com/',
 };
 
 const apiURL = 'revisebeat/api/v1';

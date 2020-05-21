@@ -33,6 +33,7 @@ export default class Type extends Component {
             numberOfLines={8}
             placeholder="Type something"
             textAlignVertical="top"
+            maxLength={1500}
           />
           <Modal
             animationType="fade"
